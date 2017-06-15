@@ -5,9 +5,58 @@
 		<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Test</title>
+		<title>Test Twig</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+		<link rel="stylesheet" href="./assets/css/main.css">
 	</head>
 	<body>
-		<h1>Hola Mundo</h1>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					{% if userInfo | length > 0 %}
+					<h1>Welcome {{ userInfo.name }}</h1>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Choose language
+							<select class="js-lang" name="">
+								<option value="es">ES</option>
+								<option value="en">EN</option>
+							</select>
+						</div>
+						<table class="js-userTable table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Name of movement</th>
+									<th>Quantity</th>
+									<th>Date of movement</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for item in userTable %}
+									<tr>
+										<th scope="row">{{ loop.index }}</th>
+										<td>{{ item.movement }}</td>
+										{% if item.quantity > 100 %}
+										  <td class="qty green">{{ item.quantity }}<span class="symbol">€</span></td>
+										{% else %}
+										  <td class="qty red">{{ item.quantity }}<span class="symbol">€</span></td>
+										{% endif %}
+										<td class="date">{{ item.date }}</td>
+									</tr>
+						    {% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script src="https://momentjs.com/downloads/moment.min.js"></script>
+		<script src="./assets/js/main.js"></script>
 	</body>
 </html>
